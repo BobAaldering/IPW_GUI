@@ -98,6 +98,10 @@ page_1_layout = html.Div(
     children=[
         html.Div(
             children=[
+                html.H1(
+                    "Explanation of the game you'll play!"
+                ),
+
                 html.Div(
                     html.P(
                         "In order to introduce you to the different courses within the Saxion in a playful and informative way, you will first have to deal with a small game. You use a marble that you can send in different directions, depending on the question that is being asked. To move the marble, different buttons are given below in the picture, so it can be moved to the left or to the right. After these questions have been answered, the courses that best match the given answers will be shown. This is followed by the second phase of this tool."
@@ -116,6 +120,40 @@ page_1_layout = html.Div(
     className="menu",
 )
 
+page_2_layout = html.Div(
+    children=[
+        html.H1(
+            "Let's play the marble game (🎮)!"
+        ),
+
+        html.Img(
+            src=app.get_asset_url("MARBLE_GAME_IMG.png"),
+            width="700",
+            height="600",
+        ),
+
+        html.Div(
+            children=[
+                html.A(
+                    html.Button(
+                        "Stop the game",
+                        className="button",
+                    ),
+                    href="/page-index",
+                ),
+                html.A(
+                    html.Button(
+                        "Continue",
+                        className="button",
+                    ),
+                    href="/page-3"
+                ),
+            ],
+        ),
+    ],
+    className="menu",
+)
+
 # This section contains hard coded data, normally it will be collected through our little marble game.
 dataframe = pd.DataFrame({
     "Education": ["Electrical Engineering", "Applied Computer Science", "Mechatronics", "Software Engineering", "Industrial Product Design"],
@@ -124,8 +162,12 @@ dataframe = pd.DataFrame({
 
 fig_of_data = px.bar(dataframe, x="Education", y="Score (in %)", barmode="group", color="Education", title="Best fit for education")
 
-page_2_layout = html.Div(
+page_3_layout = html.Div(
     children=[
+        html.H1(
+            "Result of the little marble game!"
+        ),
+
         html.P(
             "Thanks for playing the game! We now have an idea of which field of study you really like. Based on this, in the next step you will carry out a small project related to your chosen study program."
         ),
@@ -144,13 +186,38 @@ page_2_layout = html.Div(
 
         html.A(
             html.Button(
-                "Go to the small project for you education",
+                "Go to the small project!",
                 className="button",
             ),
-            href="/page-2",
+            href="/page-4",
         ),
     ],
     className="menu"
+)
+
+page_4_layout = html.Div(
+    children=[
+        html.H1(
+            "Explanation for the project"
+        ),
+
+        html.P(
+            "Everyone should start programming at some point. For this reason, the C++ programming language is often used at Saxion University of Applied Sciences, because it is applied to many embedded systems. For this reason, you are going to make a small computer program that every programmer at Saxion will start with! Your job is to say 'Hello Saxion!' on the computer screen."
+        ),
+
+        html.P(
+            "To run your program, press the 'Run' button on the next screen. You will then see the result of the program. If it doesn't work right away, don't worry! Modify the program until it runs."
+        ),
+
+        html.A(
+            html.Button(
+                "Go to the small project!",
+                className="button",
+            ),
+            href="/page-5",
+        ),
+    ],
+    className="menu",
 )
 
 
@@ -168,6 +235,10 @@ def display_page(pathname):
         return page_1_layout
     elif pathname == "/page-2":
         return page_2_layout
+    elif pathname == "/page-3":
+        return page_3_layout
+    elif pathname == "/page-4":
+        return page_4_layout
     else:
         return page_index
 

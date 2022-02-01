@@ -1,8 +1,8 @@
-# Internation Project Week - StudyCheckinator 900
+# Saxion Internation Project Week - StudyCheckinator 900
 
 This is a python program meant for a general idea for the Internation Project Week 2022 for [Saxion University of Applied Sciences](https://www.saxion.edu).
 
-Pay attention! Due to the short development time of this application, it is just a general overview for the involved teachers within this project week.
+Pay attention! Due to the short development time of this application, it is just a general overview for the involved teachers within this project week. **This means that this repository is no longer maintained after 03-02-2022.**
 
 ## To install the packages
 
@@ -32,4 +32,4 @@ Dash is running on http://127.0.0.1:8050/
  * Debug mode: on
 ```
 
-Pay attention: to show the application, please press the given link to open it in your browser.
+Pay attention! to show the application, please press the given link to open it in your browser.
