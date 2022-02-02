@@ -28,6 +28,7 @@ external_stylesheets = [
 
 # -------- APPLICATION SETUP -------- #
 
+initial_study_choice = str()  # Global variable, used for dynamic charts based on education. Used for simplicity.
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_callback_exceptions=True)
 server_run = app.server
@@ -212,8 +213,41 @@ page_2_layout = html.Div(
     className="menu",
 )
 
-
+# Add more input for the user.
 page_3_layout = html.Div(
+    children=[
+        html.H1(
+            "Can you tell your interest?!"
+        ),
+
+        html.P(
+            "We want to now more about your initial interests! Do you like for instance creating web applications, like a real Amazon application, or do you want to know more about creating a real robot?"
+        ),
+
+        html.Div(
+            dcc.RadioItems(
+                options=[
+                    {"label": "Microcontrollers", "value": "MICRO_CONT_SAX"},
+                    {"label": "Robots", "value": "ROBOT_SAX"},
+                    {"label": "Printed Circuit Boards", "value": "PCB_SAX"},
+                    {"label": "Designing products for cars", "value": "PROD_DESIGN_SAX"}
+                ],
+            ),
+        ),
+
+        html.A(
+            html.Button(
+                    "Continue",
+                    id="dropdown_notification",
+                    className="button",
+                ),
+            href="/page-4",
+        ),
+    ],
+    className="menu",
+)
+
+page_4_layout = html.Div(
     children=[
         html.Div(
             children=[
@@ -231,45 +265,10 @@ page_3_layout = html.Div(
                         "Continue",
                         className="button",
                     ),
-                    href="/page-4",
+                    href="/page-5",
                 ),
             ],
         )
-    ],
-    className="menu",
-)
-
-page_4_layout = html.Div(
-    children=[
-        html.H1(
-            "🎮 Let's play the marble game 🎮!"
-        ),
-
-        html.Img(
-            # Question is: Do you like electronics?
-            src=app.get_asset_url("MARBLE_GAME_IMG.png"),
-            width="700",
-            height="600",
-        ),
-
-        html.Div(
-            children=[
-                html.A(
-                    html.Button(
-                        "Stop the game",
-                        className="button",
-                    ),
-                    href="/page-index",
-                ),
-                html.A(
-                    html.Button(
-                        "Continue",
-                        className="button",
-                    ),
-                    href="/page-5"
-                ),
-            ],
-        ),
     ],
     className="menu",
 )
@@ -281,8 +280,8 @@ page_5_layout = html.Div(
         ),
 
         html.Img(
-            # Update picture: question about: (Do you like mechanics?)
-            src=app.get_asset_url("MARBLE_GAME_IMG_ONE.png"),
+            # Question is: Do you like electronics?
+            src=app.get_asset_url("MARBLE_GAME_IMG.png"),
             width="700",
             height="600",
         ),
@@ -316,8 +315,8 @@ page_6_layout = html.Div(
         ),
 
         html.Img(
-            # Update question: Are you a more global person or do you want to focus on one thing specific?
-            src=app.get_asset_url("MARBLE_GAME_IMG_TWO.png"),
+            # Update picture: question about: (Do you like mechanics?)
+            src=app.get_asset_url("MARBLE_GAME_IMG_ONE.png"),
             width="700",
             height="600",
         ),
@@ -351,8 +350,8 @@ page_7_layout = html.Div(
         ),
 
         html.Img(
-            # Update question: Do you want to know more about: how components work or how to apply them?
-            src=app.get_asset_url("MARBLE_GAME_IMG_THREE.png"),
+            # Update question: Are you a more global person or do you want to focus on one thing specific?
+            src=app.get_asset_url("MARBLE_GAME_IMG_TWO.png"),
             width="700",
             height="600",
         ),
@@ -379,19 +378,46 @@ page_7_layout = html.Div(
     className="menu",
 )
 
-# This section contains hard coded data, normally it will be collected through our little marble game.
-dataframe = pd.DataFrame({
-    "Education": ["Electrical Engineering", "Applied Computer Science", "Mechatronics", "Software Engineering", "Industrial Product Design"],
-    "Score (in %)": [70, 95, 60, 80, 70]
-})
+page_8_layout = html.Div(
+    children=[
+        html.H1(
+            "🎮 Let's play the marble game 🎮!"
+        ),
 
-fig_of_data = px.bar(dataframe, x="Education", y="Score (in %)", barmode="group", color="Education", title="Best fit for education")
+        html.Img(
+            # Update question: Do you want to know more about: how components work or how to apply them?
+            src=app.get_asset_url("MARBLE_GAME_IMG_THREE.png"),
+            width="700",
+            height="600",
+        ),
+
+        html.Div(
+            children=[
+                html.A(
+                    html.Button(
+                        "Stop the game",
+                        className="button",
+                    ),
+                    href="/page-index",
+                ),
+                html.A(
+                    html.Button(
+                        "Continue",
+                        className="button",
+                    ),
+                    href="/page-9"
+                ),
+            ],
+        ),
+    ],
+    className="menu",
+)
 
 # If score [70, 95, 60, 80, 70] (so second score highest, go to Applied computer science game)
 # If score [95, 70, 60, 80, 70] (so first score highest, go to Electrical Engineering game)
 # But if I can see you made already something like that.
 
-page_8_layout = html.Div(
+page_9_layout = html.Div(
     children=[
         html.H1(
             "📊 Result of the little marble game 📊!"
@@ -402,12 +428,7 @@ page_8_layout = html.Div(
         ),
 
         html.Div(
-            dcc.Graph(
-                id="Graph_{}".format(dataframe),
-                figure=fig_of_data.update_layout(title_text="Best fit for your education", title_x=0.5),
-                config={"displayModeBar": False, "responsive": False},
-                # Use this to configurate the top-bar from 'Dash' for each graph.
-            ),
+            id="graph_container",
         ),
 
         html.P(
@@ -419,14 +440,14 @@ page_8_layout = html.Div(
                 "Continue",
                 className="button",
             ),
-            href="/page-9",
+            href="/page-10",
         ),
     ],
     className="menu"
 )
 
 # ACS (introduction)
-page_9_layout = html.Div(
+page_10_layout = html.Div(
     children=[
         html.H1(
             "ℹ️ Explanation for the project (Applied Computer Science) ℹ️!"
@@ -445,14 +466,14 @@ page_9_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-10",
+            href="/page-11",
         ),
     ],
     className="menu",
 )
 
 # Game ACS
-page_10_layout = html.Div(
+page_11_layout = html.Div(
     html.Div(
         children=[
             html.H1(
@@ -500,7 +521,7 @@ page_10_layout = html.Div(
                     "To other project",
                     className="button",
                 ),
-                href="/page-11",
+                href="/page-12",
             ),
         ],
     ),
@@ -508,7 +529,7 @@ page_10_layout = html.Div(
 )
 
 #  EEE (introduction)
-page_11_layout = html.Div(
+page_12_layout = html.Div(
     children=[
         html.H1(
             "ℹ️ Explanation for the project (Electrical Engineering) ℹ️!"
@@ -527,14 +548,14 @@ page_11_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-12",
+            href="/page-13",
         ),
     ],
     className="menu",
 )
 
 # Game EEE
-page_12_layout = html.Div(
+page_13_layout = html.Div(
     html.Div(
         children=[
             html.H1(
@@ -568,7 +589,7 @@ page_12_layout = html.Div(
                     "To other project",
                     className="button",
                 ),
-                href="/page-13",
+                href="/page-14",
             ),
         ],
     ),
@@ -576,7 +597,7 @@ page_12_layout = html.Div(
 )
 
 # Mechatronics (introduction)
-page_13_layout = html.Div(
+page_14_layout = html.Div(
     children=[
         html.H1(
             "ℹ️ Explanation for the project (Mechatronics) ℹ️!"
@@ -591,14 +612,14 @@ page_13_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-14",
+            href="/page-15",
         ),
     ],
     className="menu",
 )
 
 # Game Mechatronics
-page_14_layout = html.Div(
+page_15_layout = html.Div(
     html.Div(
         children=[
             html.H1(
@@ -632,7 +653,7 @@ page_14_layout = html.Div(
                     "To other project",
                     className="button",
                 ),
-                href="/page-15",
+                href="/page-16",
             ),
         ],
     ),
@@ -640,7 +661,7 @@ page_14_layout = html.Div(
 )
 
 # IPO (introduction)
-page_15_layout = html.Div(
+page_16_layout = html.Div(
     children=[
         html.H1(
             "ℹ️ Explanation for the project (Industrial Product Design) ℹ️!"
@@ -655,14 +676,14 @@ page_15_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-16",
+            href="/page-17",
         ),
     ],
     className="menu",
 )
 
 # Game IPO
-page_16_layout = html.Div(
+page_17_layout = html.Div(
     html.Div(
         children=[
             html.H1(
@@ -696,7 +717,7 @@ page_16_layout = html.Div(
                     "To other project",
                     className="button",
                 ),
-                href="/page-17",
+                href="/page-18",
             ),
         ],
     ),
@@ -704,7 +725,7 @@ page_16_layout = html.Div(
 )
 
 # Software Engineering (introduction)
-page_17_layout = html.Div(
+page_18_layout = html.Div(
     children=[
         html.H1(
             "ℹ️ Explanation for the project (Software Engineering) ℹ️!"
@@ -723,14 +744,14 @@ page_17_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-18",
+            href="/page-19",
         ),
     ],
     className="menu",
 )
 
 # Game Software Engineering
-page_18_layout = html.Div(
+page_19_layout = html.Div(
     html.Div(
         children=[
             html.H1(
@@ -775,7 +796,7 @@ page_18_layout = html.Div(
 
             html.A(
                 html.Button(
-                    "Back to start",
+                    "To fun facts",
                     className="button",
                 ),
                 href="/page_index",
@@ -824,6 +845,10 @@ page_18_layout = html.Div(
               [dash.dependencies.Input("page-17-content", "value")])
 @app.callback(dash.dependencies.Output("page-18-content", "children"),
               [dash.dependencies.Input("page-18-content", "value")])
+@app.callback(dash.dependencies.Output("page-19-content", "children"),
+              [dash.dependencies.Input("page-19-content", "value")])
+@app.callback(dash.dependencies.Output("page-20-content", "children"),
+              [dash.dependencies.Input("page-20-content", "value")])
 @app.callback(dash.dependencies.Output("container", "children"),
               [dash.dependencies.Input("url", "pathname")])
 def display_page(pathname):
@@ -902,6 +927,9 @@ def notify_user_dropdown(value):
 @app.callback(dash.dependencies.Output("dropdown_text_notification", "children"),
               [dash.dependencies.Input("initial_study_filter", "value")])
 def notify_user_dropdown(value):
+    global initial_study_choice
+    initial_study_choice = value
+
     match value:
         case "ACS_SAX":
             return "Programmable choice! Your choice: {}.".format("Applied Computer Science")  # Best education, and the most interesting in the world! :-)
@@ -955,6 +983,66 @@ def validate_code(value, n_clicks):
             return "There are some compilation errors 😕! Try again!"
     else:
         return "Let's go coding! Enter your code within this little IDE (Integrated Developers Environment, a tool that programmers always use)."
+
+
+@app.callback(dash.dependencies.Output("graph_container", "children"),
+              [dash.dependencies.Input("url", "pathname")])
+def show_chart(pathname):
+    if pathname == "/page-9":
+        education_list = [0, 0, 0, 0, 0]
+
+        # This part is still hardcoded, but the response indicates the kind of education chosen. Due to time issues, and it is a prototype, we added some basic functionality
+
+        match initial_study_choice:
+            case "EEE_SAX":
+                education_list[0] = 95
+                education_list[1] = 30
+                education_list[2] = 56
+                education_list[3] = 67
+                education_list[4] = 23
+            case "ACS_SAX":
+                education_list[0] = 66
+                education_list[1] = 99
+                education_list[2] = 45
+                education_list[3] = 23
+                education_list[4] = 12
+            case "MT_SAX":
+                education_list[0] = 86
+                education_list[1] = 55
+                education_list[2] = 97
+                education_list[3] = 67
+                education_list[4] = 34
+            case "ICT_SAX":
+                education_list[0] = 23
+                education_list[1] = 44
+                education_list[2] = 55
+                education_list[3] = 90
+                education_list[4] = 23
+            case "IPO_SAX":
+                education_list[0] = 23
+                education_list[1] = 12
+                education_list[2] = 67
+                education_list[3] = 80
+                education_list[4] = 99
+
+        dataframe = pd.DataFrame({
+            "Education": ["Electrical Engineering", "Applied Computer Science", "Mechatronics", "Software Engineering",
+                          "Industrial Product Design"],
+            "Score (in %)": education_list
+        })
+
+        fig_of_data = px.bar(dataframe, x="Education", y="Score (in %)", barmode="group", color="Education", title="Best fit for education")
+
+        return html.Div(
+            dcc.Graph(
+                id="Graph_{}".format(dataframe),
+                figure=fig_of_data.update_layout(title_text="Best fit for your education", title_x=0.5),
+                config={"displayModeBar": False, "responsive": False},
+                # Use this to configurate the top-bar from 'Dash' for each graph.
+            ),
+        )
+    else:
+        return None
 
 
 # -------- APPLICATION BOILERPLATE -------- #
