@@ -100,6 +100,30 @@ body {
     font-weight: bold;
 }
 
+.code_input_box {
+    font-family: Consolas,monaco,monospace;
+    font-weight: bold;
+    height: 200px;
+    width: 100%;
+    resize: none;
+    background: black;
+    color: white;
+}
+
+.code_run_button {
+    font-family: Consolas, monaco, monospace;
+    font-weight: bold;
+    color: white;
+    background: slategray;
+    width: 80px;
+    height: 30px;
+    margin: 10px;
+    position: center;
+    border-radius: 2px;
+    border-width: 1px;
+    font-size: 20px;
+}
+
 .dropdown {
     align-items: center;
     justify-content: center;

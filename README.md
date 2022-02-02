@@ -1,5 +1,7 @@
 # Saxion Internation Project Week - StudyCheckinator 900
 
+#### By: Bob Aaldering and Wouter Tijdhof (students Saxion University of Applied Sciences, studies Applied Computer Science and Mechatronics) 
+
 This is a python program meant for a general idea for the Internation Project Week 2022 for [Saxion University of Applied Sciences](https://www.saxion.edu).
 
 Pay attention! Due to the short development time of this application, it is just a general overview for the involved teachers within this project week. **This means that this repository is no longer maintained after 03-02-2022.**

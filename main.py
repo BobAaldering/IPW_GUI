@@ -1,3 +1,13 @@
+# Information:
+# For every eduction within Saxion, you can also do various small projects after the initial questions.
+# The projects for every education are:
+# * Applied Computer Science: small programming exercise in C++ (simple 'hello world' program - think about some IDE within an HTML frame).
+# * Electrical Electronic Engineering: design a small PCB (deployment within an HTML frame - think about some kind of game).
+# * Mechatronics: implement a robot with C++ (deployment within an HTML frame - think about some kind of game).
+# * Industrial Product Design: design a simple case for a Raspberry Pi (deployment within an HTML frame - thing about some kind of game).
+# Python is used for creating this webpages, due to the powerful aspects this programming language has.
+
+
 # Imports for 'dash':
 import dash
 import pandas as pd
@@ -71,6 +81,10 @@ app.layout = html.Div(children=[
 
 page_index = html.Div(
     children=[
+        html.H1(
+            "🏠 Home 🏠"
+        ),
+
         html.Div(
             html.P(
                 "You are probably faced with a difficult choice. Choosing a new education. But this gadget is guaranteed to help you further! It asks you a number of questions, and as a result of these questions you get small projects that have to do with different courses within Saxion."
@@ -112,7 +126,7 @@ page_1_layout = html.Div(
                 ),
 
                 dcc.Dropdown(
-                    id="initial_study_filter",  # This identification can be used within a callback function (see 'CALLBACK_SECTION' within this script).
+                    id="initial_high_school_filter",  # This identification can be used within a callback function (see 'CALLBACK_SECTION' within this script).
                     options=[
                         # All the values, the second one within this pair is used for recognition.
                         {"label": "Applied Computer Science", "value": "ACS_SAX"},
@@ -129,14 +143,14 @@ page_1_layout = html.Div(
         ),
 
         html.P(
-            id="dropdown_text_notification",
+            id="dropdown_high_school_text_notification",
             className="user_text_notify",
         ),
 
         html.A(
             html.Button(
                     "Continue",
-                    id="dropdown_notification",
+                    id="dropdown_high_school_notification",
                     className="button",
                 ),
             href="/page-2",
@@ -247,10 +261,11 @@ page_4_layout = html.Div(
     className="menu"
 )
 
-page_5_layout = html.Div(
+# ACS (introduction)
+page_9_layout = html.Div(
     children=[
         html.H1(
-            "ℹ️ Explanation for the project ℹ️!"
+            "ℹ️ Explanation for the project (Applied Computer Science) ℹ️!"
         ),
 
         html.P(
@@ -272,16 +287,53 @@ page_5_layout = html.Div(
     className="menu",
 )
 
-page_6_layout = html.Div(
+# Game ACS
+page_10_layout = html.Div(
     html.Div(
         children=[
             html.H1(
-                "New page",
+                "Project Applied Computer Science"
+            ),
+
+            html.P(
+                "It looks like you want to learn more about what Applied Computer Science has to offer. Here you are now dealing with a simple project that delves further into the topic.",
+            ),
+
+            html.Div(
+                children=[
+                    html.A(
+                        html.Button(
+                            "Run",
+                            id="run_program_button",
+                            className="code_run_button",
+                            n_clicks=0,
+                        ),
+                    ),
+
+                    html.Div(
+                        children=[
+                            dcc.Textarea(
+                                id="input_box_coding",
+                                value="#include <iostream>\n\nint main() {\n\t// Add some code here! Remove the '//' to put your code there.\n\treturn 0;\n}",  # The initial value for the small project.
+                                className="code_input_box",
+                            ),
+
+                            html.P(
+                                id="input_coding_text_area",
+                                className="user_text_notify",
+                            ),
+
+                            html.P(
+                                "Do you have any questions? Don't worry! You can ask them within the 'IntoSaxion' environment to real students for this education. How nice is that!"
+                            ),
+                        ],
+                    ),
+                ],
             ),
 
             html.A(
                 html.Button(
-                    "Back to start",
+                    "To other project",
                     className="button",
                 ),
                 href="/page-index",
@@ -307,6 +359,30 @@ page_6_layout = html.Div(
               [dash.dependencies.Input("page-5-content", "value")])
 @app.callback(dash.dependencies.Output("page-6-content", "children"),
               [dash.dependencies.Input("page-6-content", "value")])
+@app.callback(dash.dependencies.Output("page-7-content", "children"),
+              [dash.dependencies.Input("page-7-content", "value")])
+@app.callback(dash.dependencies.Output("page-8-content", "children"),
+              [dash.dependencies.Input("page-8-content", "value")])
+@app.callback(dash.dependencies.Output("page-9-content", "children"),
+              [dash.dependencies.Input("page-9-content", "value")])
+@app.callback(dash.dependencies.Output("page-10-content", "children"),
+              [dash.dependencies.Input("page-10-content", "value")])
+@app.callback(dash.dependencies.Output("page-11-content", "children"),
+              [dash.dependencies.Input("page-11-content", "value")])
+@app.callback(dash.dependencies.Output("page-12-content", "children"),
+              [dash.dependencies.Input("page-12-content", "value")])
+@app.callback(dash.dependencies.Output("page-13-content", "children"),
+              [dash.dependencies.Input("page-13-content", "value")])
+@app.callback(dash.dependencies.Output("page-14-content", "children"),
+              [dash.dependencies.Input("page-14-content", "value")])
+@app.callback(dash.dependencies.Output("page-15-content", "children"),
+              [dash.dependencies.Input("page-15-content", "value")])
+@app.callback(dash.dependencies.Output("page-16-content", "children"),
+              [dash.dependencies.Input("page-16-content", "value")])
+@app.callback(dash.dependencies.Output("page-17-content", "children"),
+              [dash.dependencies.Input("page-17-content", "value")])
+@app.callback(dash.dependencies.Output("page-18-content", "children"),
+              [dash.dependencies.Input("page-18-content", "value")])
 @app.callback(dash.dependencies.Output("container", "children"),
               [dash.dependencies.Input("url", "pathname")])
 def display_page(pathname):
@@ -322,17 +398,64 @@ def display_page(pathname):
         return page_5_layout
     elif pathname == "/page-6":
         return page_6_layout
+    elif pathname == "/page-7":
+        return page_7_layout
+    elif pathname == "/page-8":
+        return page_8_layout
+    elif pathname == "/page-9":
+        return page_9_layout
+    elif pathname == "/page-10":
+        return page_10_layout
+    elif pathname == "/page-11":
+        return page_11_layout
+    elif pathname == "/page-12":
+        return page_12_layout
+    elif pathname == "/page-13":
+        return page_13_layout
+    elif pathname == "/page-14":
+        return page_14_layout
+    elif pathname == "/page-15":
+        return page_15_layout
+    elif pathname == "/page-16":
+        return page_16_layout
+    elif pathname == "/page-17":
+        return page_17_layout
+    elif pathname == "/page-18":
+        return page_18_layout
     else:
         return page_index
 
 
 @app.callback(dash.dependencies.Output("dropdown_notification", "disabled"),
               [dash.dependencies.Input("initial_study_filter", "value")])
-def notify_user_dropdown(value):
+def notify_user_saxion_education_dropdown(value):
     if value is None:
         return True
     else:
         return False
+
+
+@app.callback(dash.dependencies.Output("dropdown_high_school_notification", "disabled"),
+              [dash.dependencies.Input("initial_high_school_filter", "value")])
+def notify_user_high_school_dropdown(value):
+    if value is None:
+        return True
+    else:
+        return False
+
+
+@app.callback(dash.dependencies.Output("dropdown_high_school_text_notification", "children"),
+              [dash.dependencies.Input("initial_high_school_filter", "value")])
+def notify_user_dropdown(value):
+    match value:
+        case "HAVO_SAX":
+            return "Your choice: {}.".format("HAVO")
+        case "VWO_SAX":
+            return "Your choice: {}.".format("VWO")
+        case "MBO_SAX":
+            return "Your choice: {}.".format("MBO")
+        case _:
+            return "No choice made! Button disabled, please select an education."
 
 
 @app.callback(dash.dependencies.Output("dropdown_text_notification", "children"),
@@ -349,8 +472,48 @@ def notify_user_dropdown(value):
             return "Software is your thing! Your choice: {}.".format("Software Engineering")
         case "IPO_SAX":
             return "Let's design something! Your choice: {}.".format("Industrial Product Design")
+        case "NONE_SAX":
+            return "Let's go for some more questions! ".format("No preference")
         case _:
             return "No choice made! Button disabled, please select an education."
+
+
+@app.callback(dash.dependencies.Output("input_coding_text_area", "children"),
+              [dash.dependencies.Input("input_box_coding", "value"),
+               dash.dependencies.Input("run_program_button", "n_clicks")])
+def validate_code(value, n_clicks):
+    # Check for button presses, will be greater than one after a click. Could be improved, but just as a prototype (compare strings).
+    if n_clicks >= 1:
+        if "std::cout << \"Hello, Saxion!\" << std::endl;" in value:
+            return "Good job 🥳! Output of your program: \"Hello, Saxion!\""
+        elif "std::cout" in value:
+            return "Almost there! Compilation error: std::cout <-- missing argument."
+        elif "std::cout << \"\"" in value:
+            return "Almost there! Compilation error: std::cout <-- missing ';' at the end of the line."
+        elif "std::cout << \"\" << std::endl;" in value:
+            return "Almost there! Compilation error: std::cout << \"\" << std::endl; <-- missing message within 'std::cout'"
+        else:
+            return "There are some compilation errors 😕! Try again!"
+    else:
+        return "Let's go coding! Enter your code within this little IDE (Integrated Developers Environment, a tool that programmers always use)."
+
+
+@app.callback(dash.dependencies.Output("input_coding_text_area_software_engineering", "children"),
+              [dash.dependencies.Input("input_box_coding_software_engineering", "value"),
+               dash.dependencies.Input("run_program_button_software_engineering", "n_clicks")])
+def validate_code(value, n_clicks):
+    # Check for button presses, will be greater than one after a click. Could be improved, but just as a prototype (compare strings).
+    if n_clicks >= 1:
+        if "print(\"Hello, Saxion!\")" in value:
+            return "Good job 🥳! Output of your program: \"Hello, Saxion!\""
+        elif "print" in value:
+            return "Almost there! Compilation error: print <-- missing argument."
+        elif "print(\"\")" in value:
+            return "Almost there! Compilation error: print <-- missing the message"
+        else:
+            return "There are some compilation errors 😕! Try again!"
+    else:
+        return "Let's go coding! Enter your code within this little IDE (Integrated Developers Environment, a tool that programmers always use)."
 
 
 # -------- APPLICATION BOILERPLATE -------- #
