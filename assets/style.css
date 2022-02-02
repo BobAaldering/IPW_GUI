@@ -95,6 +95,17 @@ body {
     text-align: center;
 }
 
+.user_text_notify {
+    color: red;
+    font-weight: bold;
+}
+
+.dropdown {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
 @media only screen and (max-width: 1000px){
     .menu{
         display: flex;

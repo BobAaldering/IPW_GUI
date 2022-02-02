@@ -96,10 +96,61 @@ page_index = html.Div(
 
 page_1_layout = html.Div(
     children=[
+        html.H1(
+            "🔴 Initial choice of your study 🔴!"
+        ),
+
+        html.P(
+            "In order to generate a better choice, we would like to know which study program you are interested in. This allows you to make a choice in the menu below, to continue next."
+        ),
+
+        html.Div(
+            children=[
+                html.Div(
+                    id="Initial study choice:",
+                    className="menu-title",
+                ),
+
+                dcc.Dropdown(
+                    id="initial_study_filter",  # This identification can be used within a callback function (see 'CALLBACK_SECTION' within this script).
+                    options=[
+                        # All the values, the second one within this pair is used for recognition.
+                        {"label": "Applied Computer Science", "value": "ACS_SAX"},
+                        {"label": "Electrical Electronic Engineering", "value": "EEE_SAX"},
+                        {"label": "Mechatronics", "value": "MT_SAX"},
+                        {"label": "Software Engineering", "value": "ICT_SAX"},
+                        {"label": "Industrial Product Design", "value": "IPO_SAX"}
+                    ],
+                    placeholder="Select education...",
+                    clearable=False,
+                    className="dropdown",
+                ),
+            ],
+        ),
+
+        html.P(
+            id="dropdown_text_notification",
+            className="user_text_notify",
+        ),
+
+        html.A(
+            html.Button(
+                    "Continue",
+                    id="dropdown_notification",
+                    className="button",
+                ),
+            href="/page-2",
+        ),
+    ],
+    className="menu",
+)
+
+page_2_layout = html.Div(
+    children=[
         html.Div(
             children=[
                 html.H1(
-                    "Explanation of the game you'll play!"
+                    "ℹ️️ Explanation of the game you'll play ℹ️!"
                 ),
 
                 html.Div(
@@ -109,10 +160,10 @@ page_1_layout = html.Div(
                 ),
                 html.A(
                     html.Button(
-                        "Start the little marble game!",
+                        "Continue",
                         className="button",
                     ),
-                    href="/page-2",
+                    href="/page-3",
                 ),
             ],
         )
@@ -120,10 +171,10 @@ page_1_layout = html.Div(
     className="menu",
 )
 
-page_2_layout = html.Div(
+page_3_layout = html.Div(
     children=[
         html.H1(
-            "Let's play the marble game (🎮)!"
+            "🎮 Let's play the marble game 🎮!"
         ),
 
         html.Img(
@@ -146,7 +197,7 @@ page_2_layout = html.Div(
                         "Continue",
                         className="button",
                     ),
-                    href="/page-3"
+                    href="/page-4"
                 ),
             ],
         ),
@@ -162,10 +213,10 @@ dataframe = pd.DataFrame({
 
 fig_of_data = px.bar(dataframe, x="Education", y="Score (in %)", barmode="group", color="Education", title="Best fit for education")
 
-page_3_layout = html.Div(
+page_4_layout = html.Div(
     children=[
         html.H1(
-            "Result of the little marble game!"
+            "📊 Result of the little marble game 📊!"
         ),
 
         html.P(
@@ -176,7 +227,8 @@ page_3_layout = html.Div(
             dcc.Graph(
                 id="Graph_{}".format(dataframe),
                 figure=fig_of_data.update_layout(title_text="Best fit for your education", title_x=0.5),
-                config={"displayModeBar": False},  # Use this to configurate the top-bar from 'Dash' for each graph.
+                config={"displayModeBar": False, "responsive": False},
+                # Use this to configurate the top-bar from 'Dash' for each graph.
             ),
         ),
 
@@ -186,19 +238,19 @@ page_3_layout = html.Div(
 
         html.A(
             html.Button(
-                "Go to the small project!",
+                "Continue",
                 className="button",
             ),
-            href="/page-4",
+            href="/page-5",
         ),
     ],
     className="menu"
 )
 
-page_4_layout = html.Div(
+page_5_layout = html.Div(
     children=[
         html.H1(
-            "Explanation for the project"
+            "ℹ️ Explanation for the project ℹ️!"
         ),
 
         html.P(
@@ -211,12 +263,31 @@ page_4_layout = html.Div(
 
         html.A(
             html.Button(
-                "Go to the small project!",
+                "Start the small project",
                 className="button",
             ),
-            href="/page-5",
+            href="/page-6",
         ),
     ],
+    className="menu",
+)
+
+page_6_layout = html.Div(
+    html.Div(
+        children=[
+            html.H1(
+                "New page",
+            ),
+
+            html.A(
+                html.Button(
+                    "Back to start",
+                    className="button",
+                ),
+                href="/page-index",
+            ),
+        ],
+    ),
     className="menu",
 )
 
@@ -228,6 +299,14 @@ page_4_layout = html.Div(
               [dash.dependencies.Input("page-1-content", "value")])
 @app.callback(dash.dependencies.Output("page-2-content", "children"),
               [dash.dependencies.Input("page-2-content", "value")])
+@app.callback(dash.dependencies.Output("page-3-content", "children"),
+              [dash.dependencies.Input("page-3-content", "value")])
+@app.callback(dash.dependencies.Output("page-4-content", "children"),
+              [dash.dependencies.Input("page-4-content", "value")])
+@app.callback(dash.dependencies.Output("page-5-content", "children"),
+              [dash.dependencies.Input("page-5-content", "value")])
+@app.callback(dash.dependencies.Output("page-6-content", "children"),
+              [dash.dependencies.Input("page-6-content", "value")])
 @app.callback(dash.dependencies.Output("container", "children"),
               [dash.dependencies.Input("url", "pathname")])
 def display_page(pathname):
@@ -239,11 +318,43 @@ def display_page(pathname):
         return page_3_layout
     elif pathname == "/page-4":
         return page_4_layout
+    elif pathname == "/page-5":
+        return page_5_layout
+    elif pathname == "/page-6":
+        return page_6_layout
     else:
         return page_index
+
+
+@app.callback(dash.dependencies.Output("dropdown_notification", "disabled"),
+              [dash.dependencies.Input("initial_study_filter", "value")])
+def notify_user_dropdown(value):
+    if value is None:
+        return True
+    else:
+        return False
+
+
+@app.callback(dash.dependencies.Output("dropdown_text_notification", "children"),
+              [dash.dependencies.Input("initial_study_filter", "value")])
+def notify_user_dropdown(value):
+    match value:
+        case "ACS_SAX":
+            return "Programmable choice! Your choice: {}.".format("Applied Computer Science")  # Best education, and the most interesting in the world! :-)
+        case "EEE_SAX":
+            return "Electrical choice! Your choice: {}.".format("Electrical Electronic Engineering")
+        case "MT_SAX":
+            return "Let's go mechatronics! Your choice: {}.".format("Mechatronics")
+        case "ICT_SAX":
+            return "Software is your thing! Your choice: {}.".format("Software Engineering")
+        case "IPO_SAX":
+            return "Let's design something! Your choice: {}.".format("Industrial Product Design")
+        case _:
+            return "No choice made! Button disabled, please select an education."
+
 
 # -------- APPLICATION BOILERPLATE -------- #
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)  # Start our server, it is from now on possible to show our website.
+    app.run_server(debug=False)  # Start our server, it is from now on possible to show our website.
