@@ -1,4 +1,4 @@
-# Saxion Internation Project Week - StudyCheckinator 900
+# Saxion International Project Week - StudyCheckinator 900
 
 #### By: Bob Aaldering and Wouter Tijdhof (students Saxion University of Applied Sciences, studies Applied Computer Science and Mechatronics) 
 
