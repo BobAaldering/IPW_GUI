@@ -111,11 +111,11 @@ page_index = html.Div(
 page_1_layout = html.Div(
     children=[
         html.H1(
-            "🔴 Initial choice of your study 🔴!"
+            "🔴 Who are you?! 🔴"
         ),
 
         html.P(
-            "In order to generate a better choice, we would like to know which study program you are interested in. This allows you to make a choice in the menu below, to continue next."
+            "In order to generate a better choice, we would like to know which education you did before. This allows us to make better questions for YOU :)"
         ),
 
         html.Div(
@@ -129,13 +129,13 @@ page_1_layout = html.Div(
                     id="initial_high_school_filter",  # This identification can be used within a callback function (see 'CALLBACK_SECTION' within this script).
                     options=[
                         # All the values, the second one within this pair is used for recognition.
-                        {"label": "Applied Computer Science", "value": "ACS_SAX"},
-                        {"label": "Electrical Electronic Engineering", "value": "EEE_SAX"},
-                        {"label": "Mechatronics", "value": "MT_SAX"},
-                        {"label": "Software Engineering", "value": "ICT_SAX"},
-                        {"label": "Industrial Product Design", "value": "IPO_SAX"}
+                        {"label": "HAVO", "value": "HAVO_SAX"},
+                        {"label": "VWO", "value": "VWO_SAX"},
+                        {"label": "MBO", "value": "MBO_SAX"},
+                        # If MBO maybe ask more about previous education, like another tap with Mechatronics, EEE, ACS background
+
                     ],
-                    placeholder="Select education...",
+                    placeholder="Select your previous education...",
                     clearable=False,
                     className="dropdown",
                 ),
@@ -161,6 +161,60 @@ page_1_layout = html.Div(
 
 page_2_layout = html.Div(
     children=[
+        html.H1(
+            "🔴 Initial choice of your study 🔴!"
+        ),
+
+        html.P(
+            "In order to generate a better choice, we would like to know which study program you are interested in. This allows you to make a choice in the menu below, to continue next."
+        ),
+
+        html.Div(
+            children=[
+                html.Div(
+                    id="Initial study choice:",
+                    className="menu-title",
+                ),
+
+                dcc.Dropdown(
+                    id="initial_study_filter",  # This identification can be used within a callback function (see 'CALLBACK_SECTION' within this script).
+                    options=[
+                        # All the values, the second one within this pair is used for recognition.
+                        {"label": "Applied Computer Science", "value": "ACS_SAX"},
+                        {"label": "Electrical Electronic Engineering", "value": "EEE_SAX"},
+                        {"label": "Mechatronics", "value": "MT_SAX"},
+                        {"label": "Software Engineering", "value": "ICT_SAX"},
+                        {"label": "Industrial Product Design", "value": "IPO_SAX"},
+                        {"label": "I haven't a preference ", "value": "NONE_SAX"}
+
+                    ],
+                    placeholder="Select education...",
+                    clearable=False,
+                    className="dropdown",
+                ),
+            ],
+        ),
+
+        html.P(
+            id="dropdown_text_notification",
+            className="user_text_notify",
+        ),
+
+        html.A(
+            html.Button(
+                    "Continue",
+                    id="dropdown_notification",
+                    className="button",
+                ),
+            href="/page-3",
+        ),
+    ],
+    className="menu",
+)
+
+
+page_3_layout = html.Div(
+    children=[
         html.Div(
             children=[
                 html.H1(
@@ -177,7 +231,7 @@ page_2_layout = html.Div(
                         "Continue",
                         className="button",
                     ),
-                    href="/page-3",
+                    href="/page-4",
                 ),
             ],
         )
@@ -185,13 +239,14 @@ page_2_layout = html.Div(
     className="menu",
 )
 
-page_3_layout = html.Div(
+page_4_layout = html.Div(
     children=[
         html.H1(
             "🎮 Let's play the marble game 🎮!"
         ),
 
         html.Img(
+            # Question is: Do you like electronics?
             src=app.get_asset_url("MARBLE_GAME_IMG.png"),
             width="700",
             height="600",
@@ -211,7 +266,112 @@ page_3_layout = html.Div(
                         "Continue",
                         className="button",
                     ),
-                    href="/page-4"
+                    href="/page-5"
+                ),
+            ],
+        ),
+    ],
+    className="menu",
+)
+
+page_5_layout = html.Div(
+    children=[
+        html.H1(
+            "🎮 Let's play the marble game 🎮!"
+        ),
+
+        html.Img(
+            # Update picture: question about: (Do you like mechanics?)
+            src=app.get_asset_url("MARBLE_GAME_IMG_ONE.png"),
+            width="700",
+            height="600",
+        ),
+
+        html.Div(
+            children=[
+                html.A(
+                    html.Button(
+                        "Stop the game",
+                        className="button",
+                    ),
+                    href="/page-index",
+                ),
+                html.A(
+                    html.Button(
+                        "Continue",
+                        className="button",
+                    ),
+                    href="/page-6"
+                ),
+            ],
+        ),
+    ],
+    className="menu",
+)
+
+page_6_layout = html.Div(
+    children=[
+        html.H1(
+            "🎮 Let's play the marble game 🎮!"
+        ),
+
+        html.Img(
+            # Update question: Are you a more global person or do you want to focus on one thing specific?
+            src=app.get_asset_url("MARBLE_GAME_IMG_TWO.png"),
+            width="700",
+            height="600",
+        ),
+
+        html.Div(
+            children=[
+                html.A(
+                    html.Button(
+                        "Stop the game",
+                        className="button",
+                    ),
+                    href="/page-index",
+                ),
+                html.A(
+                    html.Button(
+                        "Continue",
+                        className="button",
+                    ),
+                    href="/page-7"
+                ),
+            ],
+        ),
+    ],
+    className="menu",
+)
+
+page_7_layout = html.Div(
+    children=[
+        html.H1(
+            "🎮 Let's play the marble game 🎮!"
+        ),
+
+        html.Img(
+            # Update question: Do you want to know more about: how components work or how to apply them?
+            src=app.get_asset_url("MARBLE_GAME_IMG_THREE.png"),
+            width="700",
+            height="600",
+        ),
+
+        html.Div(
+            children=[
+                html.A(
+                    html.Button(
+                        "Stop the game",
+                        className="button",
+                    ),
+                    href="/page-index",
+                ),
+                html.A(
+                    html.Button(
+                        "Continue",
+                        className="button",
+                    ),
+                    href="/page-8"
                 ),
             ],
         ),
@@ -227,7 +387,11 @@ dataframe = pd.DataFrame({
 
 fig_of_data = px.bar(dataframe, x="Education", y="Score (in %)", barmode="group", color="Education", title="Best fit for education")
 
-page_4_layout = html.Div(
+# If score [70, 95, 60, 80, 70] (so second score highest, go to Applied computer science game)
+# If score [95, 70, 60, 80, 70] (so first score highest, go to Electrical Engineering game)
+# But if I can see you made already something like that.
+
+page_8_layout = html.Div(
     children=[
         html.H1(
             "📊 Result of the little marble game 📊!"
@@ -255,7 +419,7 @@ page_4_layout = html.Div(
                 "Continue",
                 className="button",
             ),
-            href="/page-5",
+            href="/page-9",
         ),
     ],
     className="menu"
@@ -281,7 +445,7 @@ page_9_layout = html.Div(
                 "Start the small project",
                 className="button",
             ),
-            href="/page-6",
+            href="/page-10",
         ),
     ],
     className="menu",
@@ -336,13 +500,290 @@ page_10_layout = html.Div(
                     "To other project",
                     className="button",
                 ),
-                href="/page-index",
+                href="/page-11",
             ),
         ],
     ),
     className="menu",
 )
 
+#  EEE (introduction)
+page_11_layout = html.Div(
+    children=[
+        html.H1(
+            "ℹ️ Explanation for the project (Electrical Engineering) ℹ️!"
+        ),
+
+        html.P(
+            "The basis of electrical engineering is the design of various electronic circuits. For this you use a special program on the computer, in order to be able to design your own printed circuit board. This is something that almost every electrical engineering student at Saxion does!"
+        ),
+
+        html.P(
+            "You will be designing a printed circuit board. A simple tool is used for this, which converts your circuit. You can start drawing 'lines' to let this go to various components. Ultimately it is even possible to consult a real 3D design of the PCB (printed circuit board)!"
+        ),
+
+        html.A(
+            html.Button(
+                "Start the small project",
+                className="button",
+            ),
+            href="/page-12",
+        ),
+    ],
+    className="menu",
+)
+
+# Game EEE
+page_12_layout = html.Div(
+    html.Div(
+        children=[
+            html.H1(
+                "Project Electrical Engineering"
+            ),
+
+            html.P(
+                "It looks like you want to learn more about what EEE has to offer. Here you are now dealing with a simple project that delves further into the topic.",
+            ),
+
+            html.Div(
+                children=[
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src=app.get_asset_url("PROJECT_EEE.png"),
+                                width="700",
+                                height="400",
+                            ),
+
+                            html.P(
+                                "Do you have any questions? Don't worry! You can ask them within the 'IntoSaxion' environment to real students for this education. How nice is that!"
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+
+            html.A(
+                html.Button(
+                    "To other project",
+                    className="button",
+                ),
+                href="/page-13",
+            ),
+        ],
+    ),
+    className="menu",
+)
+
+# Mechatronics (introduction)
+page_13_layout = html.Div(
+    children=[
+        html.H1(
+            "ℹ️ Explanation for the project (Mechatronics) ℹ️!"
+        ),
+
+        html.P(
+            "Your job as student of Mechatronic is to combine electronic and mechanic parts to make a moving system! In this game you see an project you will make in the 1e year and you have to make the right choice of components that are inside the project. "
+        ),
+
+        html.A(
+            html.Button(
+                "Start the small project",
+                className="button",
+            ),
+            href="/page-14",
+        ),
+    ],
+    className="menu",
+)
+
+# Game Mechatronics
+page_14_layout = html.Div(
+    html.Div(
+        children=[
+            html.H1(
+                "Project Mechatronics"
+            ),
+
+            html.P(
+                "It looks like you want to learn more about what Mechatronics has to offer. Here you are now dealing with a simple project that delves further into the topic.",
+            ),
+
+            html.Div(
+                children=[
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src=app.get_asset_url("PROJECT_MT.png"),
+                                width="700",
+                                height="400",
+                            ),
+
+                            html.P(
+                                "Do you have any questions? Don't worry! You can ask them within the 'IntoSaxion' environment to real students for this education. How nice is that!"
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+
+            html.A(
+                html.Button(
+                    "To other project",
+                    className="button",
+                ),
+                href="/page-15",
+            ),
+        ],
+    ),
+    className="menu",
+)
+
+# IPO (introduction)
+page_15_layout = html.Div(
+    children=[
+        html.H1(
+            "ℹ️ Explanation for the project (Industrial Product Design) ℹ️!"
+        ),
+
+        html.P(
+            "You will now start designing a simple component, which students at IPO do very often! For this you will work with a real program in which basic components are developed. You already have a basic design, as a result of this you can add a number of things to the initial design, so that you can make your own design!"
+        ),
+
+        html.A(
+            html.Button(
+                "Start the small project",
+                className="button",
+            ),
+            href="/page-16",
+        ),
+    ],
+    className="menu",
+)
+
+# Game IPO
+page_16_layout = html.Div(
+    html.Div(
+        children=[
+            html.H1(
+                "Project Industrial Product Design"
+            ),
+
+            html.P(
+                "It looks like you want to learn more about what IPO has to offer. Here you are now dealing with a simple project that delves further into the topic.",
+            ),
+
+            html.Div(
+                children=[
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src=app.get_asset_url("PROJECT_IPO.png"),
+                                width="700",
+                                height="400",
+                            ),
+
+                            html.P(
+                                "Do you have any questions? Don't worry! You can ask them within the 'IntoSaxion' environment to real students for this education. How nice is that!"
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+
+            html.A(
+                html.Button(
+                    "To other project",
+                    className="button",
+                ),
+                href="/page-17",
+            ),
+        ],
+    ),
+    className="menu",
+)
+
+# Software Engineering (introduction)
+page_17_layout = html.Div(
+    children=[
+        html.H1(
+            "ℹ️ Explanation for the project (Software Engineering) ℹ️!"
+        ),
+
+        html.P(
+            "Everyone should start programming at some point. For this reason, the Python programming language is often used at Saxion University of Applied Sciences, because it is applied to many computer applications. For this reason, you are going to make a small computer program that every programmer at Saxion will start with! Your job is to say 'Hello Saxion!' on the computer screen."
+        ),
+
+        html.P(
+            "To run your program, press the 'Run' button on the next screen. You will then see the result of the program. If it doesn't work right away, don't worry! Modify the program until it runs."
+        ),
+
+        html.A(
+            html.Button(
+                "Start the small project",
+                className="button",
+            ),
+            href="/page-18",
+        ),
+    ],
+    className="menu",
+)
+
+# Game Software Engineering
+page_18_layout = html.Div(
+    html.Div(
+        children=[
+            html.H1(
+                "Project Software Engineering "
+            ),
+
+            html.P(
+                "It looks like you want to learn more about what Software Engineering has to offer. Here you are now dealing with a simple project that delves further into the topic.",
+            ),
+
+            html.Div(
+                children=[
+                    html.A(
+                        html.Button(
+                            "Run",
+                            id="run_program_button_software_engineering",
+                            className="code_run_button",
+                            n_clicks=0,
+                        ),
+                    ),
+
+                    html.Div(
+                        children=[
+                            dcc.Textarea(
+                                id="input_box_coding_software_engineering",
+                                value="if __name__ == \"__main__\":\n\t# Print here \"Hello, Saxion!\"",  # The initial value for the small project.
+                                className="code_input_box",
+                            ),
+
+                            html.P(
+                                id="input_coding_text_area_software_engineering",
+                                className="user_text_notify",
+                            ),
+
+                            html.P(
+                                "Do you have any questions? Don't worry! You can ask them within the 'IntoSaxion' environment to real students for this education. How nice is that!"
+                            ),
+                        ],
+                    ),
+                ],
+            ),
+
+            html.A(
+                html.Button(
+                    "Back to start",
+                    className="button",
+                ),
+                href="/page_index",
+            ),
+        ],
+    ),
+    className="menu",
+)
 
 # -------- CALLBACKS -------- #
 
