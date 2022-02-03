@@ -799,10 +799,39 @@ page_19_layout = html.Div(
                     "To fun facts",
                     className="button",
                 ),
-                href="/page_index",
+                href="/page-20",
             ),
         ],
     ),
+    className="menu",
+)
+
+page_20_layout = html.Div(
+    children=[
+        html.H1(
+            "⁉️ FUN FACTS ⁉️"
+        ),
+
+        html.Div(
+            html.P(
+                "Did you know that:"
+            ),
+        ),
+
+        html.Div(
+            html.P(
+                "Saxion provides a lot of international educations? A lot is internationally focussed, good for later in business!"
+            ),
+        ),
+
+        html.A(
+            html.Button(
+                "Start the gadget!",
+                className="button",
+            ),
+            href="/page-index",
+        ),
+    ],
     className="menu",
 )
 
@@ -888,6 +917,12 @@ def display_page(pathname):
         return page_17_layout
     elif pathname == "/page-18":
         return page_18_layout
+    elif pathname == "/page-18":
+        return page_18_layout
+    elif pathname == "/page-19":
+        return page_19_layout
+    elif pathname == "/page-20":
+        return page_20_layout
     else:
         return page_index
 
